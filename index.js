@@ -2,6 +2,7 @@ import express from 'express'
 
 const app = express();
 app.use(express.json());
+app.use(middleware);
 
 let courses = [
   {
@@ -57,6 +58,11 @@ app.delete("/courses/:id", (req, res) => {
     const deletedCourse = courses.splice(courseId, 1);
     res.json(deletedCourse);
 })
+
+function middleware(req, res, next) {
+    console.log(`[${new Date()}] ${req.method} request from ${req.ip} to ${req.hostname}`);
+    next();
+}
 
 app.listen(3000, () => {
   console.log("Listening on port 3000...");
