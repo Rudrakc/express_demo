@@ -1,5 +1,7 @@
-const express = require("express");
+import express from 'express'
+
 const app = express();
+app.use(express.json());
 
 let courses = [
   {
@@ -18,6 +20,14 @@ let courses = [
 
 app.get("/courses", (req, res) => {
   res.json(courses);
+});
+
+app.post("/courses", (req, res) => {
+    const data = req.body;
+    console.log('Received data:', data);
+    courses.push(data);
+    console.log(courses);
+    res.send('Data received');
 });
 
 app.listen(3000, () => {
